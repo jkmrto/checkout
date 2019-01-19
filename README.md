@@ -1,27 +1,22 @@
 # Checkout
 
-**TODO: Add description**
+## Development Setup
 
-## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `checkout` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:checkout, "~> 0.1.0"}
-  ]
-end
+Use  ```iex -S mix``` to run the project in interactive mode. There you can try this commands to use it:
 ```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/checkout](https://hexdocs.pm/checkout).
-
-
-
 co = Checkout.new(pricing_rules)
 co.scan(item)
 co.scan(item)
 price = co.total
+```
+
+### Elixir version control
+This project uses ASDF to handle Elixir and Erlang version. Both version are stored at 'tool-versions'.
+
+
+## Test
+
+To run the tests: 
+```
+mix test
+```
