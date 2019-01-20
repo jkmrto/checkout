@@ -9,10 +9,18 @@ defmodule Checkout do
 
   def new(), do: GenServer.start(__MODULE__, [], [])
 
+  def new!() do
+    case GenServer.start(__MODULE__, [], []) do
+      {:ok, pid} -> pid
+      error -> raise RuntimeError, message: "Error creating Checkout: #{inspect error}"
+    end
+  end
+
   def scan(pid, item), do: GenServer.cast(pid, {:add, item})
 
   def get_cart(pid), do:  GenServer.call(pid, :get_cart)
 
+  @spec get_items_count(atom() | pid() | {atom(), any()} | {:via, atom(), any()}) :: any()
   def get_items_count(pid), do:  GenServer.call(pid, :get_items_count)
 
   def total(pid), do:  GenServer.call(pid, :get_price)

@@ -27,25 +27,25 @@ defmodule CheckoutTest do
   end
 
   test "test count_items (@items1)" do
-    {:ok, pid} = Checkout.new()
+    pid = Checkout.new!()
     @items1 |> Enum.each(&(Checkout.scan(pid, &1)))
     assert @count_items1 == Checkout.get_items_count(pid)
   end
 
   test "test count_items (@items2)" do
-    {:ok, pid} = Checkout.new()
+    pid = Checkout.new!()
     @items2 |> Enum.each(&(Checkout.scan(pid, &1)))
     assert @count_items2 == Checkout.get_items_count(pid)
   end
 
   test "test count_items (@items3)" do
-    {:ok, pid} = Checkout.new()
+    pid = Checkout.new!()
     @items3 |> Enum.each(&(Checkout.scan(pid, &1)))
     assert @count_items3 == Checkout.get_items_count(pid)
   end
 
   test "test count_items (@item4)" do
-    {:ok, pid} = Checkout.new()
+    pid = Checkout.new!()
     @items4 |> Enum.each(&(Checkout.scan(pid, &1)))
     assert @count_items4 == Checkout.get_items_count(pid)
   end
