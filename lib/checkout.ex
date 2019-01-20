@@ -7,10 +7,10 @@ defmodule Checkout do
   # API #
   #######
 
-  def new(), do: GenServer.start(__MODULE__, [], [])
+  def new(price_module), do: GenServer.start(__MODULE__, price_module, [])
 
-  def new!() do
-    case GenServer.start(__MODULE__, [], []) do
+  def new!(price_module) do
+    case GenServer.start(__MODULE__, price_module, []) do
       {:ok, pid} -> pid
       error -> raise RuntimeError, message: "Error creating Checkout: #{inspect(error)}"
     end
@@ -29,8 +29,8 @@ defmodule Checkout do
   # Callbacks #
   #############
 
-  def init(_args),
-    do: {:ok, %{cart: [], price_module: Checkout.PricingRules}}
+  def init(price_module),
+    do: {:ok, %{cart: [], price_module: price_module}}
 
   def handle_cast({:add, item}, state = %{cart: cart}),
     do: {:noreply, %{state | cart: [item | cart]}}

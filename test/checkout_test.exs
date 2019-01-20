@@ -19,7 +19,7 @@ defmodule CheckoutTest do
   @count_items4 %{"GR1" => 1, "SR1" => 1, "CF1" => 3}
 
   test "Are items added to cart?" do
-    {:ok, pid} = Checkout.new()
+    {:ok, pid} = Checkout.new(Checkout.PricingRules)
     @items1 |> Enum.each(&Checkout.scan(pid, &1))
 
     # Last item will be now on head, so we need to reverse original list
@@ -27,49 +27,49 @@ defmodule CheckoutTest do
   end
 
   test "test count_items (@items1)" do
-    pid = Checkout.new!()
+    pid = Checkout.new!(Checkout.PricingRules)
     @items1 |> Enum.each(&Checkout.scan(pid, &1))
     assert @count_items1 == Checkout.get_items_count(pid)
   end
 
   test "test count_items (@items2)" do
-    pid = Checkout.new!()
+    pid = Checkout.new!(Checkout.PricingRules)
     @items2 |> Enum.each(&Checkout.scan(pid, &1))
     assert @count_items2 == Checkout.get_items_count(pid)
   end
 
   test "test count_items (@items3)" do
-    pid = Checkout.new!()
+    pid = Checkout.new!(Checkout.PricingRules)
     @items3 |> Enum.each(&Checkout.scan(pid, &1))
     assert @count_items3 == Checkout.get_items_count(pid)
   end
 
   test "test count_items (@item4)" do
-    pid = Checkout.new!()
+    pid = Checkout.new!(Checkout.PricingRules)
     @items4 |> Enum.each(&Checkout.scan(pid, &1))
     assert @count_items4 == Checkout.get_items_count(pid)
   end
 
   test "buy-one-get-one-free offers of GR1 (@items2)" do
-    {:ok, pid} = Checkout.new()
+    {:ok, pid} = Checkout.new(Checkout.PricingRules)
     @items2 |> Enum.each(&Checkout.scan(pid, &1))
     assert @price2 == Checkout.total(pid)
   end
 
   test "test price (@items1)" do
-    {:ok, pid} = Checkout.new()
+    {:ok, pid} = Checkout.new(Checkout.PricingRules)
     @items1 |> Enum.each(&Checkout.scan(pid, &1))
     assert @price1 == Checkout.total(pid)
   end
 
   test "test price (@items3)" do
-    {:ok, pid} = Checkout.new()
+    {:ok, pid} = Checkout.new(Checkout.PricingRules)
     @items3 |> Enum.each(&Checkout.scan(pid, &1))
     assert @price3 == Checkout.total(pid)
   end
 
   test "test price (@item4)" do
-    {:ok, pid} = Checkout.new()
+    {:ok, pid} = Checkout.new(Checkout.PricingRules)
     @items4 |> Enum.each(&Checkout.scan(pid, &1))
     assert @price4 == Checkout.total(pid)
   end
