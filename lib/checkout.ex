@@ -1,5 +1,6 @@
 defmodule Checkout do
   use GenServer
+  alias Checkout.PriceHelper
   require Logger
 
   #######
@@ -14,13 +15,13 @@ defmodule Checkout do
 
   def get_items_count(pid), do:  GenServer.call(pid, :get_items_count)
 
+  def total(pid), do:  GenServer.call(pid, :get_price)
+
   #############
   # Callbacks #
   #############
 
-  def init(_args) do
-    {:ok, []}
-  end
+  def init(_args), do: {:ok, []}
 
   def handle_cast({:add, item}, cart),
     do: {:noreply, [item | cart]}
@@ -28,13 +29,15 @@ defmodule Checkout do
   def handle_call(:get_cart, _from, cart),
     do: {:reply, cart, cart}
 
-  def handle_call(:get_price, _from, cart) do
-    {:reply, cart, cart}
-  end
-
   def handle_call(:get_items_count, _from, cart),
     do: {:reply, count_items(cart), cart}
 
+  def handle_call(:get_price, _from, cart) do
+    total_price = cart
+      |> count_items()
+      |> PriceHelper.calculate_price()
+    {:reply, total_price , cart}
+  end
   ###########
   # Private #
   ###########
@@ -55,6 +58,5 @@ defmodule Checkout do
       end
     end)
   end
-
 
 end

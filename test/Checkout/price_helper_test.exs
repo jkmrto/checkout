@@ -16,7 +16,7 @@ defmodule Checkout.Test.PriceHelperTest do
   @price2 3.11
   @count_items2 %{"GR1" => 2, "SR1" => 0, "CF1" => 0}
 
-  @price3 16.81
+  @price3 16.61
   @count_items3 %{"GR1" => 1, "SR1" => 3, "CF1" => 0}
 
   @price4 30.57
@@ -48,10 +48,10 @@ defmodule Checkout.Test.PriceHelperTest do
   end
 
   test "Price over items list (Test Data) " do
-    @price1 == PriceHelper.calculate_price(@count_items1)
-    @price2 == PriceHelper.calculate_price(@count_items2)
-    @price3 == PriceHelper.calculate_price(@count_items3)
-    @price4 == PriceHelper.calculate_price(@count_items4)
+    assert @price1 == PriceHelper.calculate_price(@count_items1)
+    assert @price2 == PriceHelper.calculate_price(@count_items2)
+    assert @price3 == PriceHelper.calculate_price(@count_items3)
+    assert @price4 == PriceHelper.calculate_price(@count_items4)
   end
 
 end

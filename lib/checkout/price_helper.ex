@@ -9,9 +9,12 @@ defmodule Checkout.PriceHelper do
   @rate_discount_coffe 2/3
 
   def calculate_price(count_items) do
-    teas_price(count_items["GR1"]) +
-    strawberries_price(count_items["SR1"]) +
-    coffes_price(count_items["CF1"])
+    [ teas_price(count_items["GR1"]),
+      strawberries_price(count_items["SR1"]),
+      coffes_price(count_items["CF1"])
+    ]
+    |> Enum.sum()
+    |> Float.round(2)
   end
 
   def teas_price(n_teas),
